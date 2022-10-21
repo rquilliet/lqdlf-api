@@ -18,9 +18,30 @@ def index():
   return "<h1>Les Quizz de le Foot</h1>"
 
 @app.route('/career/<player_name>', methods=['GET'])
-def get_career(player_name):
+def get_career_by_name(player_name):
 	player = mongo.db.players
 	pl=player.find_one({'name':player_name})
+	if pl:
+		try:
+			output={
+			'name':pl['name'],
+			'career':pl['career'],
+			'height':pl['height'],
+			'nationality':pl['nationality'],
+			'pageviews':pl['pageviews'],
+			'pop_rank':pl['pop_rank'],
+			'level':pl['level']}
+		except:
+			output="Issue in DB with "+str(player_name)
+	else:
+		output="No player named "+str(player_name)
+	return jsonify({'result':output})
+
+
+@app.route('/career_level/<level>', methods=['GET'])
+def get_career_by_level(level):
+	player = mongo.db.players
+	pl=player.aggregate([{'$match':{'level':level}},{'$sample':{'size':1}}])
 	if pl:
 		try:
 			output={
