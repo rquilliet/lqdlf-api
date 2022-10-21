@@ -28,7 +28,9 @@ def get_career(player_name):
 			'career':pl['career'],
 			'height':pl['height'],
 			'nationality':pl['nationality'],
-			'pageviews':pl['pageviews']}
+			'pageviews':pl['pageviews'],
+			'pop_rank':pl['pop_rank'],
+			'level':pl['level']}
 		except:
 			output="Issue in DB with "+str(player_name)
 	else:
