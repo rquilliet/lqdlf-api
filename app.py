@@ -4,6 +4,7 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from flask_pymongo import PyMongo
+import pprint
 import certifi
 
 app = Flask(__name__)
@@ -42,20 +43,19 @@ def get_career_by_name(player_name):
 def get_career_by_level(level):
 	player = mongo.db.players
 	pl=player.aggregate([{'$match':{'level':level}},{'$sample':{'size':1}}])
-	if pl:
-		try:
+	try:
+		for p in pl:
 			output={
-			'name':pl['name'],
-			'career':pl['career'],
-			'height':pl['height'],
-			'nationality':pl['nationality'],
-			'pageviews':pl['pageviews'],
-			'pop_rank':pl['pop_rank'],
-			'level':pl['level']}
-		except:
-			output="Issue in DB with "+str(player_name)
-	else:
-		output="No player named "+str(player_name)
+			'name':p['name'],
+			'career':p['career'],
+			'height':p['height'],
+			'nationality':p['nationality'],
+			'pageviews':p['pageviews'],
+			'pop_rank':p['pop_rank'],
+			'level':p['level']}
+	except:
+		output="Issue in DB"
+		pprint.pprint(list(pl))
 	return jsonify({'result':output})
 
 @app.route('/players', methods=['GET'])
