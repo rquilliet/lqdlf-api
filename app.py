@@ -13,6 +13,10 @@ app.config['MONGO_URI'] = 'mongodb+srv://remi:Asmasm1986$@atlascluster.3befly2.m
 mongo = PyMongo(app)
 #APP_URL="http://localhost:5000"
 
+@app.route('/')
+def index():
+  return "<h1>Les Quizz de le Foot</h1>"
+
 @app.route('/career/<player_name>', methods=['GET'])
 def get_career(player_name):
 	player = mongo.db.players
