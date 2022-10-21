@@ -22,7 +22,12 @@ def get_career(player_name):
 	player = mongo.db.players
 	pl=player.find_one({'name':player_name})
 	if pl:
-		output={'name':pl['name'],'career':pl['career']}
+		output={
+		'name':pl['name'],
+		'career':pl['career'],
+		'height':pl['height'],
+		'nationality':pl['nationality'],
+		'pageviews':pl['pageviews']}
 	else:
 		output="No player named "+str(player_name)
 	return jsonify({'result':output})
