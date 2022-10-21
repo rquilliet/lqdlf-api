@@ -7,8 +7,8 @@ from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 
-app.config['MONGO_DBNAME'] = 'jdg'
-app.config['MONGO_URI'] = 'mongodb://remi:asmasmasm@ds113936.mlab.com:13936/jdg' #Comment to connect to localhost:27017 db
+app.config['MONGO_DBNAME'] = 'lqdlf'
+app.config['MONGO_URI'] = 'mongodb+srv://remi:Asmasm1986$@atlascluster.3befly2.mongodb.net/?retryWrites=true&w=majority' #Comment to connect to localhost:27017 db
 #TEST
 mongo = PyMongo(app,config_prefix='MONGO')
 APP_URL="http://localhost:5000"
