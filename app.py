@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config['MONGO_DBNAME'] = 'lqdlf'
 app.config['MONGO_URI'] = 'mongodb+srv://remi:Asmasm1986$@atlascluster.3befly2.mongodb.net/lqdlf?retryWrites=true&w=majority&tlsCAFile='+certifi.where()
 mongo = PyMongo(app)
-APP_URL="http://localhost:5000"
+#APP_URL="http://localhost:5000"
 
 @app.route('/career/<player_name>', methods=['GET'])
 def get_career(player_name):
