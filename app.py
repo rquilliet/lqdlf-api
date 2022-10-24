@@ -58,7 +58,29 @@ def get_career_by_level(level):
 		pprint.pprint(list(pl))
 	return jsonify({'result':output})
 
-@app.route('/players', methods=['GET'])
+@app.route('/names/<level>', methods=['GET'])
+def get_names_by_level(level):
+	player = mongo.db.players
+	pl=player.find({'level':level})
+	output=[]
+	try:
+		for p in pl:
+			name=p['name']
+			match len(name.split(" ")):
+				case 1:
+					name=name
+				case 2:
+					name=name.split(" ")[1]
+				case _:
+					name=" ".join(name.split(" ")[1:])
+			output.append(name)
+	except:
+		output="Issue in DB"
+		pprint.pprint(list(pl))
+	return jsonify({'result':output})
+
+
+@app.route('/players', methods=['GET']) #not finished
 def get_players():
 	player = mongo.db.players
 	teams = request.args.get('teams', None)
