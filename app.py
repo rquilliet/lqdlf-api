@@ -77,6 +77,8 @@ def get_names_by_level(level):
 	except:
 		output="Issue in DB"
 		pprint.pprint(list(pl))
+	output=[*set(output)]
+	output.sort()
 	return jsonify({'result':output})
 
 
