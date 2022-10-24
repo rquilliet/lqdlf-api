@@ -81,6 +81,25 @@ def get_names_by_level(level):
 	output.sort()
 	return jsonify({'result':output})
 
+@app.route('/name/<level>', methods=['GET'])
+def get_name_by_level(level):
+	player = mongo.db.players
+	pl=player.aggregate([{'$match':{'level':level}},{'$sample':{'size':1}}])
+	try:
+		for p in pl:
+			name=p['name']
+			match len(name.split(" ")):
+				case 1:
+					name=name
+				case 2:
+					name=name.split(" ")[1]
+				case _:
+					name=" ".join(name.split(" ")[1:])
+		output=name
+	except:
+		output="Issue in DB"
+		pprint.pprint(list(pl))
+	return jsonify({'result':output})
 
 @app.route('/players', methods=['GET']) #not finished
 def get_players():
