@@ -4,10 +4,14 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from flask_pymongo import PyMongo
+from flask_cors import CORS, cross_origin
 import pprint
 import certifi
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 app.config['MONGO_DBNAME'] = 'lqdlf'
 app.config['MONGO_URI'] = 'mongodb+srv://remi:Asmasm1986$@atlascluster.3befly2.mongodb.net/lqdlf?retryWrites=true&w=majority&tlsCAFile='+certifi.where()
@@ -15,6 +19,8 @@ mongo = PyMongo(app)
 #APP_URL="http://localhost:5000"
 
 @app.route('/')
+@cross_origin()
+
 def index():
   return "<h1>Les Quizz de le Foot</h1>"
 
